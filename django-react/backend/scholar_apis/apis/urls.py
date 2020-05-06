@@ -25,4 +25,7 @@ urlpatterns = [
     path('authors/delete', views.DeleteAuthor),
     path('articles/delete', views.DeleteArticle),
 
+    # get all the article info for a certain topic
+    path('topics/topic=<str:topic>',views.TopicDetailByName),
+
 ]

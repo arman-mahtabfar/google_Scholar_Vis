@@ -69,6 +69,26 @@ def ArticlesByJournal(req, journal):
     serializer = ArticleSerializer(articles, many=True)
     return Response(serializer.data)
 
+# join topics and articles table
+@api_view(('GET',))
+def TopicDetailByName(req,topic):
+    data={}
+    results=[]
+    topic = topic.replace('+', ' ').lower()
+    with connection.cursor() as cursor:
+        cursor.execute(
+            'SELECT id,pub_title,pub_year,pub_url '
+            'FROM Topics LEFT JOIN Articles ON Topics.article_id=Articles.id WHERE Topics.assumed_topic = %s', [topic])
+        topics=cursor.fetchall()
+    for t in topics:
+        result = {}
+        result['id']=t[0]
+        result['pub_title']=t[1]
+        result['pub_year'] = t[2]
+        result['pub_url'] = t[3]
+        results.append(result)
+    return Response(results)
+
 #create author, article
 @api_view(('POST',))
 def AddAuthor(req):
