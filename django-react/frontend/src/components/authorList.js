@@ -47,7 +47,7 @@ class AuthorList extends Component {
             <Button style={{ marginLeft: "10px"}}color="primary" onClick={() => this.mounting(document.getElementById('InputName').value)}>
           Search
         </Button>
-          <Table dark>
+          <Table dark style = {{marginBottom:"60px"}}>
             <thead>
               <tr>
                 <th>Publication Title</th>
