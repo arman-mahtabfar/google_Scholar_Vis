@@ -25,10 +25,75 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+    <style type="text/css">
+      #viz {
+          width: 900px;
+          height: 700px;
+          border: 1px solid lightgray;
+          font: 22pt arial;
+      }
+
+    </style>
+    <script src="https://cdn.neo4jlabs.com/neovis.js/v1.4.0/neovis.js"></script>
   </head>
-  <body>
+  <script>
+    var viz;
+
+    function draw() {
+        var config = {
+            container_id: "viz",
+            server_url: "bolt://localhost:7687",
+            server_user: "neo4j",
+            server_password: "1234",
+            labels: {
+            },
+            relationships: {
+                
+            },
+            initial_cypher: "MATCH (n1)-[r]->(n2) RETURN r, n1, n2"
+        };
+
+        viz = new NeoVis.default(config);
+        viz.render();
+    }
+    function drawInput() {
+        var sFinal = "MATCH (n1)-[r]->(n2) WHERE n1.name = '";
+        var s2 = document.getElementById("InputName2").value;
+        var s3 = "' OR n1.author_name = '"
+        var s4 = "' RETURN r, n1, n2";
+        sFinal = sFinal.concat(s2,s3,s2,s4);
+        sFinal.concat();
+        var config = {
+            container_id: "viz",
+            server_url: "bolt://localhost:7687",
+            server_user: "neo4j",
+            server_password: "1234",
+            labels: {
+            },
+            relationships: {
+                
+            },
+            initial_cypher: sFinal
+        };
+
+        viz = new NeoVis.default(config);
+        viz.render();
+    }
+  </script>
+  <body onload = "draw()">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <div>
+        <div style=" margin-top: 50px;margin-left: 40vh;margin-right:40vh" }}>
+                
+            <input type="text" class="myform" id="InputName2" placeholder="Enter name"></input>
+            <Button style=" marginLeft: 10px" color="primary" onClick="drawInput()">
+          Search
+        </Button>
+        </div>
+      <div style = "margin:auto" id = "viz">
+      </div>
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
