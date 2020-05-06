@@ -79,19 +79,54 @@
         viz = new NeoVis.default(config);
         viz.render();
     }
+    function drawInput2() {
+      var sFinal = "match (a1:Article)-[r1:About]->(t:Topic)<-[r2:About]-(a2:Article) WHERE t.topic = '";
+        var s2 = document.getElementById("InputName3").value;
+        var s3 = "' OR n1.author_name = '"
+        var s4 = "' return a1,r1,t,r2,a2";
+        sFinal = sFinal.concat(s2,s4);
+        sFinal.concat();
+        var config = {
+            container_id: "viz",
+            server_url: "bolt://localhost:7687",
+            server_user: "neo4j",
+            server_password: "1234",
+            labels: {
+            },
+            relationships: {
+                
+            },
+            initial_cypher: sFinal
+        };
+
+        viz = new NeoVis.default(config);
+        viz.render();
+    }
   </script>
   <body onload = "draw()">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <style>
+      button:focus {
+        outline:0 !important;
+      }
+    </style>
     <div>
         <div style=" margin-top: 50px;margin-left: 40vh;margin-right:40vh" }}>
                 
-            <input type="text" class="myform" id="InputName2" placeholder="Enter name"></input>
-            <Button style=" marginLeft: 10px" color="primary" onClick="drawInput()">
-          Search
+            <input type="text" style = "width: 350px;"class="myform" id="InputName2" placeholder="Search for an author of your choice"></input>
+            <Button style=" width: 100px; height: 30px; margin-left: 20px; margin-bottom: 20px;background-color:#007bff; border-radius: 5px; color:white"onClick="drawInput()">
+          Search Author
         </Button>
         </div>
-      <div style = "margin:auto" id = "viz">
+        <div style="margin-left: 40vh;margin-right:40vh" }}>
+                
+          <input type="text" style = "width: 350px;"class="myform" id="InputName3" placeholder="Search for a topic of your choice"></input>
+          <Button style=" width: 100px; height: 30px;margin-left: 20px; margin-bottom: 20px;background-color:#007bff; border-radius: 5px; color:white"onClick="drawInput2()">
+        Search Article
+      </Button>
+      </div>
+      <div style = "margin:auto; margin-bottom: 100px; border:solid black 1px; border-radius: 5px;" id = "viz">
       </div>
     </div>
     <!--
