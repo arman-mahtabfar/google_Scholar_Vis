@@ -1,4 +1,4 @@
-# google_scholar_vis
+# Database-Systems-Final-Project
 
 django-react web app using Neo4j and neovis library for visuals
 
